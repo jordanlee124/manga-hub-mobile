@@ -1,0 +1,46 @@
+import { StyleSheet, Dimensions } from 'react-native';
+
+export const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+
+export const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#000' },
+  center: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#1a1a2e' },
+  loadingText: { color: '#888', marginTop: 12 },
+  errorText: { color: '#e74c3c', fontSize: 14 },
+  pageVertical: { width: SCREEN_WIDTH, height: SCREEN_WIDTH * 1.45 },
+  pageHorizontal: { width: SCREEN_WIDTH, height: SCREEN_HEIGHT },
+  navBar: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  navButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: '#e74c3c',
+    borderRadius: 6,
+  },
+  navButtonDisabled: { backgroundColor: '#444' },
+  navButtonText: { color: '#fff', fontSize: 14, fontWeight: '600' },
+  chapterLabel: { color: '#ccc', fontSize: 13 },
+  backButton: {
+    position: 'absolute',
+    top: 48,
+    left: 16,
+    zIndex: 10,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backButtonText: { color: '#fff', fontSize: 24, lineHeight: 28, marginLeft: -2 },
+});

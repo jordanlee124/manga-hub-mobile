@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npx create-expo-app@latest . --template blank-typescript 2>&1)",
+      "PowerShell(npx create-expo-app@latest $tempDir --template blank-typescript 2>&1)",
+      "PowerShell($tempDir = \"d:\\\\Coding\\\\Personal\\\\_manga-temp\")",
+      "PowerShell(Get-ChildItem \"d:\\\\Coding\\\\Personal\\\\_manga-temp\" | Where-Object { $_.Name -ne '.git' } | ForEach-Object { Move-Item $_.FullName \"d:\\\\Coding\\\\Personal\\\\manga-hub-mobile\\\\\" -Force }; Remove-Item \"d:\\\\Coding\\\\Personal\\\\_manga-temp\" -Recurse -Force)",
+      "PowerShell(Get-ChildItem \"d:\\\\Coding\\\\Personal\\\\_manga-temp\" | Where-Object { $_.Name -ne '.git' -and $_.Name -ne '.claude' } | ForEach-Object { Move-Item $_.FullName \"d:\\\\Coding\\\\Personal\\\\manga-hub-mobile\\\\\" -Force }; Remove-Item \"d:\\\\Coding\\\\Personal\\\\_manga-temp\" -Recurse -Force)",
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\Coding\\\\Personal\\\\manga-hub-mobile\\\\src\\\\api\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\Coding\\\\Personal\\\\manga-hub-mobile\\\\src\\\\screens\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\Coding\\\\Personal\\\\manga-hub-mobile\\\\src\\\\types\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\Coding\\\\Personal\\\\manga-hub-mobile\\\\src\\\\components\")",
+      "PowerShell(cmd /c \"rmdir /s /q D:\\\\Coding\\\\Personal\\\\manga-hub-mobile\\\\node_modules\" 2>&1)",
+      "PowerShell(Get-Process -Name \"node\" -ErrorAction SilentlyContinue)",
+      "PowerShell(Stop-Process -Force)",
+      "PowerShell(cmd /c \"rmdir /s /q D:\\\\Coding\\\\Personal\\\\manga-hub-mobile\\\\node_modules\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\Coding\\\\Personal\\\\manga-hub-mobile\\\\src\\\\context\")",
+      "WebSearch",
+      "Bash(gh api *)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:mangafire.to)",
+      "Bash(Remove-Item \"d:\\\\Coding\\\\Personal\\\\manga-hub-mobile\\\\src\\\\api\\\\batoto.ts\")",
+      "Bash(xargs grep -h \"^import\")",
+      "Bash(npx expo *)",
+      "Bash(npm uninstall *)",
+      "Bash(del \"d:\\\\Coding\\\\Personal\\\\manga-hub-mobile\\\\src\\\\components\\\\atoms\\\\AdBanner.tsx\")",
+      "Bash(Remove-Item \"d:\\\\Coding\\\\Personal\\\\manga-hub-mobile\\\\src\\\\api\\\\comick.ts\")"
+    ]
+  }
+}
