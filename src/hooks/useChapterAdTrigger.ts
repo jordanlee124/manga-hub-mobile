@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let InterstitialAd: any = null;
@@ -14,6 +15,11 @@ try {
   // Native module unavailable (Expo Go)
 }
 
+const INTERSTITIAL_AD_UNIT_ID = Platform.select({
+  android: 'ca-app-pub-2991215686912199/1396182615',
+  ios: null,
+});
+
 const CHAPTERS_READ_KEY = '@manga_hub_chapters_read_count';
 const AD_INTERVAL = 5;
 
@@ -24,7 +30,9 @@ export function useChapterAdTrigger(isPremium: boolean) {
   useEffect(() => {
     if (!InterstitialAd || isPremium) return;
 
-    const ad = InterstitialAd.createForAdRequest(TestIds.INTERSTITIAL, {
+    const unitId = INTERSTITIAL_AD_UNIT_ID ?? TestIds?.INTERSTITIAL;
+    if (!unitId) return;
+    const ad = InterstitialAd.createForAdRequest(unitId, {
       requestNonPersonalizedAdsOnly: true,
     });
     adRef.current = ad;
