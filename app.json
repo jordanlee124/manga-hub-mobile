@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "_manga-temp",
-    "slug": "_manga-temp",
+    "slug": "mangahub",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,7 +16,8 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.siregitongkkangtong.mangahub"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,6 +30,12 @@
           "iosAppId": "ca-app-pub-3940256099942544~1458002511"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "c8a56504-1cb0-4c01-a173-a15c18888790"
+      }
+    },
+    "owner": "siregitong-kkangtong"
   }
 }

@@ -9,6 +9,15 @@ export const styles = StyleSheet.create({
   errorText: { color: '#e74c3c', fontSize: 14 },
   pageVertical: { width: SCREEN_WIDTH, height: SCREEN_WIDTH * 1.45 },
   pageHorizontal: { width: SCREEN_WIDTH, height: SCREEN_HEIGHT },
+  adBannerFixed: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.7)',
+  },
+  navBarWithAd: { bottom: 50 },
   navBar: {
     position: 'absolute',
     bottom: 0,

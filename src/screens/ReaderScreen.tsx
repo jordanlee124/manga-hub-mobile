@@ -14,6 +14,9 @@ import { fetchChapterPages } from '../api/mangadex';
 import { markChapterRead, setLastReadChapter } from '../storage';
 import type { RootStackParamList } from '../types/manga';
 import { useSettings } from '../context/SettingsContext';
+import { usePurchases } from '../context/PurchasesContext';
+import AdBanner from '../components/atoms/AdBanner';
+import { useChapterAdTrigger } from '../hooks/useChapterAdTrigger';
 import { styles, SCREEN_WIDTH } from './styles/ReaderScreen';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Reader'>;
@@ -25,6 +28,8 @@ export default function ReaderScreen() {
   const navigation = useNavigation<Nav>();
   const { chapterId, mangaId, title, source, chapterList = [], chapterIndex = 0 } = route.params;
   const { readingMode } = useSettings();
+  const { isPremium } = usePurchases();
+  const { onChapterRead } = useChapterAdTrigger(isPremium);
 
   const [pages, setPages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
@@ -58,6 +63,7 @@ export default function ReaderScreen() {
           pagesLengthRef.current = urls.length;
           markChapterRead(mangaId, chapterId);
           setLastReadChapter(mangaId, chapterId);
+          onChapterRead();
         }
       } catch (e) {
         console.error(e);
@@ -195,7 +201,7 @@ export default function ReaderScreen() {
         }
       />
       {uiVisible && (
-        <View style={styles.navBar}>
+        <View style={[styles.navBar, !isPremium && styles.navBarWithAd]}>
           <TouchableOpacity
             style={[styles.navButton, !prevChapter && styles.navButtonDisabled]}
             onPress={() => prevChapter && goToChapter(chapterIndex - 1)}
@@ -214,6 +220,11 @@ export default function ReaderScreen() {
           >
             <Text style={styles.navButtonText}>Next ›</Text>
           </TouchableOpacity>
+        </View>
+      )}
+      {!isPremium && (
+        <View style={styles.adBannerFixed}>
+          <AdBanner />
         </View>
       )}
     </View>

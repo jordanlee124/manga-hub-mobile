@@ -21,6 +21,7 @@ import { isBookmarked, addBookmark, removeBookmark, getReadChapters } from '../s
 import type { Manga, RootStackParamList } from '../types/manga';
 import type { NormalizedChapter } from '../types/chapter';
 import CoverImage from '../components/atoms/CoverImage';
+import AdBanner from '../components/atoms/AdBanner';
 import { ChapterRow, ChapterVersionRow } from '../components/molecules/ChapterRow';
 import { styles } from './styles/MangaDetailScreen';
 
@@ -179,6 +180,7 @@ export default function MangaDetailScreen() {
 
   const renderHeader = useCallback(() => (
     <View>
+      <AdBanner />
       <View style={styles.header}>
         <CoverImage uri={coverUrl} style={styles.cover} />
         <View style={styles.headerInfo}>

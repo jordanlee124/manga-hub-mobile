@@ -7,6 +7,7 @@ import { getBookmarks, removeBookmark } from '../storage';
 import type { BookmarkedManga } from '../storage';
 import type { RootStackParamList } from '../types/manga';
 import BookmarkCard from '../components/molecules/BookmarkCard';
+import AdBanner from '../components/atoms/AdBanner';
 import { styles } from './styles/LibraryScreen';
 
 type Nav = NativeStackNavigationProp<RootStackParamList, 'Home'>;
@@ -29,6 +30,7 @@ export default function LibraryScreen() {
   if (!bookmarks.length) {
     return (
       <SafeAreaView style={styles.container}>
+        <AdBanner />
         <View style={styles.empty}>
           <Text style={styles.emptyIcon}>📚</Text>
           <Text style={styles.emptyText}>Your library is empty.</Text>
@@ -40,6 +42,7 @@ export default function LibraryScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <AdBanner />
       <FlatList
         data={bookmarks}
         keyExtractor={item => item.id}
