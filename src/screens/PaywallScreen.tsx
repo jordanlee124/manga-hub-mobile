@@ -72,6 +72,24 @@ export default function PaywallScreen() {
     }
   };
 
+  if (isPremium) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <TouchableOpacity style={styles.closeBtn} onPress={() => navigation.goBack()}>
+          <Text style={styles.closeBtnText}>✕</Text>
+        </TouchableOpacity>
+        <View style={styles.premiumActiveContainer}>
+          <Text style={styles.premiumActiveStar}>★</Text>
+          <Text style={styles.premiumActiveTitle}>You're Premium!</Text>
+          <Text style={styles.premiumActiveSubtitle}>Thank you for your support.{'\n'}All ads are removed and features unlocked.</Text>
+          <TouchableOpacity style={styles.restoreBtn} onPress={handleRestore} disabled={purchasing}>
+            <Text style={styles.restoreBtnText}>Restore purchases</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   if (isLoading) {
     return (
       <SafeAreaView style={styles.container}>

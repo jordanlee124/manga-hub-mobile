@@ -26,6 +26,7 @@ const AD_INTERVAL = 5;
 export function useChapterAdTrigger(isPremium: boolean) {
   const adRef = useRef<any>(null);
   const adLoadedRef = useRef(false);
+  const pendingShowRef = useRef(false);
 
   useEffect(() => {
     if (!InterstitialAd || isPremium) return;
@@ -39,6 +40,10 @@ export function useChapterAdTrigger(isPremium: boolean) {
 
     const unsubLoaded = ad.addAdEventListener(AdEventType.LOADED, () => {
       adLoadedRef.current = true;
+      if (pendingShowRef.current) {
+        pendingShowRef.current = false;
+        ad.show();
+      }
     });
     const unsubClosed = ad.addAdEventListener(AdEventType.CLOSED, () => {
       adLoadedRef.current = false;
@@ -60,8 +65,12 @@ export function useChapterAdTrigger(isPremium: boolean) {
     const count = (parseInt(raw ?? '0', 10) || 0) + 1;
     await AsyncStorage.setItem(CHAPTERS_READ_KEY, String(count));
 
-    if (count % AD_INTERVAL === 0 && adRef.current && adLoadedRef.current) {
-      adRef.current.show();
+    if (count % AD_INTERVAL === 0) {
+      if (adLoadedRef.current && adRef.current) {
+        adRef.current.show();
+      } else {
+        pendingShowRef.current = true;
+      }
     }
   };
 

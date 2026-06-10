@@ -3,17 +3,18 @@ import { Platform } from 'react-native';
 import Purchases, {
   LOG_LEVEL,
   type CustomerInfo,
-  type Offerings,
   type PurchasesPackage,
 } from 'react-native-purchases';
+
+type Offerings = Awaited<ReturnType<typeof Purchases.getOfferings>>;
 
 // ─── Replace these with your RevenueCat project API keys ─────────────────────
 const API_KEYS = {
   ios: 'appl_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-  android: 'goog_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+  android: 'goog_cxwHelezxxgtEsBkkfEvEpjdbVg',
 };
 
-export const ENTITLEMENT_ID = 'premium';
+export const ENTITLEMENT_ID = 'Manga Hub Pro';
 
 interface PurchasesContextType {
   isPremium: boolean;
@@ -58,12 +59,14 @@ export function PurchasesProvider({ children }: { children: React.ReactNode }) {
       }
     })();
 
-    const listener = Purchases.addCustomerInfoUpdateListener(setCustomerInfo);
-    return () => listener.remove();
+    Purchases.addCustomerInfoUpdateListener(setCustomerInfo);
+    return () => {
+      Purchases.removeCustomerInfoUpdateListener(setCustomerInfo);
+    };
   }, []);
 
   const isPremium =
-    customerInfo?.entitlements.active[ENTITLEMENT_ID] !== undefined ?? false;
+    !!customerInfo?.entitlements.active[ENTITLEMENT_ID];
 
   const purchase = useCallback(async (pkg: PurchasesPackage) => {
     const { customerInfo: info } = await Purchases.purchasePackage(pkg);

@@ -41,4 +41,6 @@ export const styles = StyleSheet.create({
   premiumBannerTitle: { color: '#fff', fontSize: 15, fontWeight: '700', marginBottom: 2 },
   premiumBannerSubtitle: { color: '#aaa', fontSize: 12 },
   premiumBannerArrow: { color: '#e74c3c', fontSize: 24 },
+  restoreBtn: { marginTop: 12, alignItems: 'center', paddingVertical: 10 },
+  restoreBtnText: { color: '#e74c3c', fontSize: 13 },
 });

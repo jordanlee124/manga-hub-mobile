@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -31,7 +31,20 @@ const MODES: { value: ReadingMode; label: string; description: string }[] = [
 export default function SettingsScreen() {
   const navigation = useNavigation<Nav>();
   const { readingMode, setReadingMode } = useSettings();
-  const { isPremium } = usePurchases();
+  const { isPremium, restore } = usePurchases();
+  const [restoring, setRestoring] = useState(false);
+
+  const handleRestore = async () => {
+    setRestoring(true);
+    try {
+      await restore();
+      Alert.alert('Restored', isPremium ? 'Premium access restored!' : 'No active purchases found.');
+    } catch {
+      Alert.alert('Restore failed', 'Please try again.');
+    } finally {
+      setRestoring(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container} edges={['bottom']}>
@@ -51,6 +64,14 @@ export default function SettingsScreen() {
           </View>
           {!isPremium && <Text style={styles.premiumBannerArrow}>›</Text>}
         </TouchableOpacity>
+        {!isPremium && (
+          <TouchableOpacity style={styles.restoreBtn} onPress={handleRestore} disabled={restoring}>
+            {restoring
+              ? <ActivityIndicator color="#e74c3c" />
+              : <Text style={styles.restoreBtnText}>Restore purchases</Text>
+            }
+          </TouchableOpacity>
+        )}
       </View>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Reading Mode</Text>

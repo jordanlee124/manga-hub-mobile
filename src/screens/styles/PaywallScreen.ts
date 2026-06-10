@@ -54,4 +54,8 @@ export const styles = StyleSheet.create({
   restoreBtnText: { color: '#888', fontSize: 13 },
   legalText: { color: '#555', fontSize: 11, textAlign: 'center', marginTop: 16, lineHeight: 16 },
   loadingContainer: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  premiumActiveContainer: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32 },
+  premiumActiveStar: { fontSize: 64, marginBottom: 16 },
+  premiumActiveTitle: { color: '#fff', fontSize: 28, fontWeight: '800', marginBottom: 12 },
+  premiumActiveSubtitle: { color: '#aaa', fontSize: 15, textAlign: 'center', lineHeight: 22, marginBottom: 32 },
 });
