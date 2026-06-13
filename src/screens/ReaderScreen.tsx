@@ -13,6 +13,7 @@ import type { NativeStackScreenProps, NativeStackNavigationProp } from '@react-n
 import { fetchChapterPages } from '../api/mangadex';
 import { markChapterRead, setLastReadChapter } from '../storage';
 import type { RootStackParamList } from '../types/manga';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSettings } from '../context/SettingsContext';
 import { usePurchases } from '../context/PurchasesContext';
 import AdBanner from '../components/atoms/AdBanner';
@@ -30,6 +31,7 @@ export default function ReaderScreen() {
   const { readingMode } = useSettings();
   const { isPremium } = usePurchases();
   const { onChapterRead } = useChapterAdTrigger(isPremium);
+  const insets = useSafeAreaInsets();
 
   const [pages, setPages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
@@ -201,7 +203,7 @@ export default function ReaderScreen() {
         }
       />
       {uiVisible && (
-        <View style={[styles.navBar, !isPremium && styles.navBarWithAd]}>
+        <View style={[styles.navBar, !isPremium && styles.navBarWithAd, { bottom: (isPremium ? 0 : 50) + insets.bottom }]}>
           <TouchableOpacity
             style={[styles.navButton, !prevChapter && styles.navButtonDisabled]}
             onPress={() => prevChapter && goToChapter(chapterIndex - 1)}
@@ -223,7 +225,7 @@ export default function ReaderScreen() {
         </View>
       )}
       {!isPremium && (
-        <View style={styles.adBannerFixed}>
+        <View style={[styles.adBannerFixed, { bottom: insets.bottom }]}>
           <AdBanner />
         </View>
       )}
